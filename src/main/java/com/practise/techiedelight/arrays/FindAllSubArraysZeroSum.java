@@ -25,17 +25,22 @@ public class FindAllSubArraysZeroSum {
     {
         Set<List<Integer>> subarrays = new HashSet<>();
         int sumSoFar = 0;
-        Map<Integer, Integer> map = new HashMap<>();
+        Map<Integer, List<Integer>> map = new HashMap<>();
         for(int i=0; i<nums.size(); i++){
             sumSoFar += nums.get(i);
             if(sumSoFar == 0){
                 subarrays.add(createList(nums, 0, i));
             }
             if(map.containsKey(sumSoFar)){
-                int startIndex = map.get(sumSoFar) + 1;
-                subarrays.add(createList(nums, startIndex, i));
+                List<Integer> starts = map.get(sumSoFar);
+                for(int startIndex: starts){
+                    subarrays.add(createList(nums, startIndex+1, i));
+                }
             }
-            map.put(sumSoFar, i);
+            else{
+                map.put(sumSoFar, new ArrayList<>());
+            }
+            map.get(sumSoFar).add(i);
         }
         return subarrays;
     }

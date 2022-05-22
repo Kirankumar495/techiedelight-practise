@@ -29,9 +29,7 @@ public class MaximumLengthSubArray {
                     length = endIndex-startIndex +1;
                 }
             }
-            if(!map.containsKey(sumSoFar)){
-                map.put(sumSoFar, i);
-            }
+            map.putIfAbsent(sumSoFar, i);
         }
         List<Integer> result = new ArrayList<>();
         if(length > 0){
